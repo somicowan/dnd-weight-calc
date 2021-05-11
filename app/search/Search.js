@@ -5,8 +5,7 @@ class Search extends Component {
         super(props);
         this.state = {
             query: "",
-            requested: false,
-            searchUpdateText: ""
+            requested: false
         }
     }
 
@@ -22,9 +21,8 @@ class Search extends Component {
 
                     if(status === 0 || (status >= 200 && status < 400)) {
                         this.props.addItem(request.responseText);
-                        this.setState({searchUpdateText: this.state.query + " added."})
                     } else {
-                        this.setState({searchUpdateText: "Item Not Found"})
+                        this.props.addItem("notFound");
                     }
                     this.setState({requested: false});
 
@@ -50,7 +48,6 @@ class Search extends Component {
                     <input value={this.state.query} onChange={() => this.updateQuery(event)} id="search-bar" type="search"/>
                     <input type="submit" value="Add Item"/>
                 </form>
-                <p aria-live="polite" className="search-update">{this.state.searchUpdateText}</p>
             </div>
         )
     }
