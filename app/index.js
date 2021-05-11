@@ -19,7 +19,6 @@ class App extends React.Component {
             this.setState({statusMessage: "Item not found"});
         } else {
             let itemObj;
-
             itemObj = JSON.parse(item);
             const index = itemObj.index;
 
@@ -70,7 +69,7 @@ class App extends React.Component {
         let newWeight = 0;
 
         for(let i = 0; i < this.state.items.length; i++) {
-            newWeight += (this.state.items[i].weight) * (this.state.items[i].quantity);
+            newWeight += (this.state.items[i].weight ? this.state.items[i].weight : 0) * (this.state.items[i].quantity);
         }
 
         this.setState({ weightTotal: newWeight + " lb"});
@@ -91,7 +90,7 @@ class App extends React.Component {
             return <Item key={item.index}
                          id={item.index}
                          name={item.name}
-                         weight={item.weight}
+                         weight={item.weight ? item.weight : "N/A"}
                          cost={item.cost.quantity + " " + item.cost.unit}
                          quantity={item.quantity}
                          updateQuantity={(itemIndex, newQuantity) => this.updateQuantity(itemIndex, newQuantity)}
@@ -104,7 +103,7 @@ class App extends React.Component {
                     <h1>Search for an Item</h1>
                     <Search addItem={(item) => this.addItem(item)}/>
                 </div>
-                <span aria-live="polite" className="status-message">{this.state.statusMessage}</span>
+                <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
                 <div className="bag">
                     <h1>Currently in the Bag</h1>
                     { itemList }
