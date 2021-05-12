@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Search from './search/Search.js';
 import Item from "./item/Item.js";
+import ImportExport from "./importExport/ImportExport.js";
 
 class App extends React.Component {
     constructor(props) {
@@ -44,7 +45,11 @@ class App extends React.Component {
         if(foundItemIndex > -1) {
             const newItemList = this.state.items;
             newItemList[foundItemIndex].quantity = newQuantity;
-            this.setState({ items: newItemList });
+            const itemName = newItemList[foundItemIndex].name;
+            this.setState({
+                items: newItemList,
+                statusMessage: ""
+            });
         }
         this._calculateWeight();
     }
@@ -58,11 +63,17 @@ class App extends React.Component {
             newItemList.splice(foundItemIndex, 1);
             this.setState({
                 items: newItemList,
-                statusMessage: item + " removed"
+                statusMessage: item + " removed."
             });
         }
 
         this._calculateWeight();
+    }
+
+    updateBag(bag) {
+        this.setState({ items: JSON.parse(bag) }, () => {
+            this._calculateWeight();
+        });
     }
 
     _calculateWeight() {
@@ -86,6 +97,7 @@ class App extends React.Component {
     }
 
     render() {
+        {this.state.items}
         let itemList = this.state.items.map(item => {
             return <Item key={item.index}
                          id={item.index}
@@ -103,9 +115,10 @@ class App extends React.Component {
                     <h1>Search for an Item</h1>
                     <Search addItem={(item) => this.addItem(item)}/>
                 </div>
-                <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
+                <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} />
                 <div className="bag">
                     <h1>Currently in the Bag</h1>
+                    <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
                     { itemList }
                 </div>
                 <div className="weight-total">
