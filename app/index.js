@@ -10,8 +10,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             items: [],
-            weightTotal: "0 lb",
-            statusMessage: ""
+            weightTotal: 0,
+            statusMessage: "",
+            strScore: 0,
+            totalCapacity: 0,
+            overweight: ""
         }
     }
 
@@ -76,6 +79,17 @@ class App extends React.Component {
         });
     }
 
+    updateTotalCapacity(event) {
+        const str = event.target.value;
+
+        this.setState({
+            strScore: str,
+            totalCapacity: str * 15
+        });
+
+        this._updateEncumbrance();
+    }
+
     _calculateWeight() {
         let newWeight = 0;
 
@@ -83,7 +97,8 @@ class App extends React.Component {
             newWeight += (this.state.items[i].weight ? this.state.items[i].weight : 0) * (this.state.items[i].quantity);
         }
 
-        this.setState({ weightTotal: newWeight + " lb"});
+        this.setState({ weightTotal: newWeight });
+        this._updateEncumbrance();
     }
 
     _findItemIndex(indexToSearch) {
@@ -94,6 +109,19 @@ class App extends React.Component {
         }
 
         return -1;
+    }
+
+    _updateEncumbrance() {
+        if(this.state.weightTotal > this.state.totalCapacity) {
+            this.setState({ overweight: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
+        } else if(this.state.weightTotal > (this.state.strScore * 10) &&
+                  this.state.weightTotal <= (this.state.totalCapacity)) {
+            this.setState({ overweight: "Heavily encumbered - Speed drops by 20 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
+        } else if(this.state.weightTotal > (this.state.strScore * 5)) {
+            this.setState({ overweight: "Encumbered - Speed drops by 10 ft."});
+        } else {
+            this.setState({ overweight: ""});
+        }
     }
 
     render() {
@@ -123,7 +151,12 @@ class App extends React.Component {
                 </div>
                 <div className="weight-total">
                     <h1>Total Weight</h1>
-                    { this.state.weightTotal }
+                    <label htmlFor="char-str">Enter your character's character score (e.g. 18)</label>
+                    <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
+                    <div className="capacity">
+                        { this.state.weightTotal } / { this.state.totalCapacity } lb <br/>
+                        <span className="overweight-warning">{ this.state.overweight }</span>
+                    </div>
                 </div>
             </main>
         )
