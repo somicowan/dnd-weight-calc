@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Search from './search/Search.js';
 import Item from "./item/Item.js";
 import ImportExport from "./importExport/ImportExport.js";
+import CustomItem from "./customItem/CustomItem.js";
 
 class App extends React.Component {
     constructor(props) {
@@ -31,15 +32,19 @@ class App extends React.Component {
             if(foundItemIndex > -1) {
                 const newItemList = this.state.items;
                 newItemList[foundItemIndex].quantity += 1;
-                this.setState({ items: newItemList });
+                this.setState({ items: newItemList }, () => {
+                    this._calculateWeight();
+                });
             } else {
-                itemObj.quantity = 1;
-                this.setState({items: this.state.items.concat(itemObj)});
+                if(!itemObj.quantity) {
+                    itemObj.quantity = 1;
+                }
+                this.setState({items: this.state.items.concat(itemObj)}, () => {
+                    this._calculateWeight();
+                });
             }
 
             this.setState({statusMessage: itemObj.name + " added."});
-
-            this._calculateWeight();
         }
     }
 
@@ -52,9 +57,10 @@ class App extends React.Component {
             this.setState({
                 items: newItemList,
                 statusMessage: ""
+            }, () => {
+                this._calculateWeight();
             });
         }
-        this._calculateWeight();
     }
 
     deleteItem(itemIndex) {
@@ -67,10 +73,10 @@ class App extends React.Component {
             this.setState({
                 items: newItemList,
                 statusMessage: item + " removed."
+            }, () => {
+                this._calculateWeight();
             });
         }
-
-        this._calculateWeight();
     }
 
     updateBag(bag) {
@@ -85,9 +91,9 @@ class App extends React.Component {
         this.setState({
             strScore: str,
             totalCapacity: str * 15
+        }, () => {
+            this._updateEncumbrance();
         });
-
-        this._updateEncumbrance();
     }
 
     _calculateWeight() {
@@ -97,8 +103,9 @@ class App extends React.Component {
             newWeight += (this.state.items[i].weight ? this.state.items[i].weight : 0) * (this.state.items[i].quantity);
         }
 
-        this.setState({ weightTotal: newWeight });
-        this._updateEncumbrance();
+        this.setState({ weightTotal: newWeight }, () => {
+            this._updateEncumbrance();
+        });
     }
 
     _findItemIndex(indexToSearch) {
@@ -125,7 +132,6 @@ class App extends React.Component {
     }
 
     render() {
-        {this.state.items}
         let itemList = this.state.items.map(item => {
             return <Item key={item.index}
                          id={item.index}
@@ -143,6 +149,11 @@ class App extends React.Component {
                     <h1>Search for an Item</h1>
                     <Search addItem={(item) => this.addItem(item)}/>
                 </div>
+                <div className="custom-item-add">
+                    <h1>Add an Item</h1>
+                    <CustomItem addItem={(item) => this.addItem(item)}/>
+                </div>
+
                 <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} />
                 <div className="bag">
                     <h1>Currently in the Bag</h1>
