@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './searchStyle.scss';
+
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -74,18 +76,18 @@ class Search extends Component {
             const fullItemInfo = item.split("|");
             const index = fullItemInfo[0];
             const name = fullItemInfo[1];
-
+            const ariaLabel = "Add " + name + " to Bag";
             return(
                 <div key={index} className="autosearch-item">
                     {name}
-                    <button onClick={() => this.getItemInfo(index)}>Add item</button>
+                    <button aria-label={ariaLabel} onClick={() => this.getItemInfo(index)}>Add</button>
                 </div>
             );
         });
 
         return (
             <div className="search-area">
-                <label htmlFor="search-bar">
+                <label className="sr-only" htmlFor="search-bar">
                     Search for Item
                 </label>
                 <input value={this.state.query} onChange={() => this.updateQuery(event)} id="search-bar" type="search"/>

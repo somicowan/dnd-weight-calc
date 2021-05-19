@@ -1,0 +1,22 @@
+.search-area {
+    #search-bar {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+    }
+
+    .autosearch-item {
+        margin: 5px 0;
+        font-family: "Scaly Sans";
+        border-bottom: 1px solid #aaa;
+
+        button {
+            background-color: transparent;
+            border: 1px solid #000;
+            margin: 3px;
+            border-radius: 5px;
+            padding: 3px;
+            cursor: pointer;
+        }
+    }
+}

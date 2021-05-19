@@ -1,0 +1,72 @@
+@import "./fonts/fontFamily.scss";
+@import "./commonStyles/_vars.scss";
+
+body {
+    main {
+        @include breakpoint(desktop) {
+            display: flex;
+        }
+
+        h1, h2, p {
+            margin: 0;
+            line-height: 1;
+        }
+
+        h1 {
+            font-family: "Mr Eaves Small Caps";
+            font-weight: normal;
+        }
+
+        h2 {
+            font-family: "Scaly Sans Caps";
+            font-weight: 600;
+        }
+
+        p, label {
+            font-family: "Merriweather";
+            font-weight: 200;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        label {
+            margin-right: 8px;
+        }
+
+        input, button {
+            min-height: 44px;
+            min-width: 44px;
+
+            @include breakpoint(desktop) {
+                min-height: 0;
+                min-width: 0;
+            }
+        }
+
+        .left-side {
+            width: 100%;
+
+            @include breakpoint(desktop) {
+                width: 25%;
+                margin-right: 15px;
+            }
+        }
+
+        .right-side {
+            @include breakpoint(desktop) {
+                width: 75%;
+            }
+        }
+
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0,0,0,0);
+          border: 0;
+        }
+    }
+}

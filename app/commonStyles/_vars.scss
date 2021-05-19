@@ -1,0 +1,23 @@
+$phablet-width: 576px;
+$tablet-width: 768px;
+$desktop-width: 992px;
+$large-desktop-width: 1200px;
+
+@mixin breakpoint($point) {
+  @if $point == largeDesktop {
+    @media (min-width: $large-desktop-width) { @content ; }
+ }
+  @else if $point == desktop {
+    @media (min-width: $desktop-width) { @content ; }
+ }
+   @else if $point == tablet {
+    @media (min-width: $tablet-width) { @content ; }
+ }
+  @else if $point == phablet {
+    @media (min-width: $phablet-width)  { @content ; }
+ }
+}
+
+// $tablet-up: @media and (min-width: $tablet-width);
+// $desktop-up: @media and (min-width: $desktop-width);
+// $large-desktop-up: @media and (min-width: $large-desktop-up);

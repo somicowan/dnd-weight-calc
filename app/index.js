@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import ItemController from './itemController/ItemController.js';
+
 import Search from './search/Search.js';
 import Item from "./item/Item.js";
 import ImportExport from "./importExport/ImportExport.js";
 import CustomItem from "./customItem/CustomItem.js";
+
+import "./mainStyle.scss";
 
 class App extends React.Component {
     constructor(props) {
@@ -15,7 +19,8 @@ class App extends React.Component {
             statusMessage: "",
             strScore: 0,
             totalCapacity: 0,
-            overweight: ""
+            overweight: "",
+            itemCollapse: false
         }
     }
 
@@ -145,28 +150,26 @@ class App extends React.Component {
 
         return (
             <main>
-                <div className="search">
-                    <h1>Search for an Item</h1>
-                    <Search addItem={(item) => this.addItem(item)}/>
-                </div>
-                <div className="custom-item-add">
-                    <h1>Add an Item</h1>
-                    <CustomItem addItem={(item) => this.addItem(item)}/>
+                <div className="left-side">
+                    <ItemController addItem={(item) => this.addItem(item)} />
+
+                    <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} />
                 </div>
 
-                <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} />
-                <div className="bag">
-                    <h1>Currently in the Bag</h1>
-                    <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
-                    { itemList }
-                </div>
-                <div className="weight-total">
-                    <h1>Total Weight</h1>
-                    <label htmlFor="char-str">Enter your character's character score (e.g. 18)</label>
-                    <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
-                    <div className="capacity">
-                        { this.state.weightTotal } / { this.state.totalCapacity } lb <br/>
-                        <span className="overweight-warning">{ this.state.overweight }</span>
+                <div className="right-side">
+                    <div className="bag">
+                        <h1>Currently in the Bag</h1>
+                        <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
+                        { itemList }
+                    </div>
+                    <div className="weight-total">
+                        <h1>Total Weight</h1>
+                        <label htmlFor="char-str">Enter your character's character score (e.g. 18)</label>
+                        <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
+                        <div className="capacity">
+                            { this.state.weightTotal } / { this.state.totalCapacity } lb <br/>
+                            <span className="overweight-warning">{ this.state.overweight }</span>
+                        </div>
                     </div>
                 </div>
             </main>

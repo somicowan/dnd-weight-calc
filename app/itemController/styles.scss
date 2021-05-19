@@ -1,0 +1,35 @@
+@import "./../commonStyles/_vars.scss";
+
+.item-controller {
+    position: relative;
+    margin-bottom: 15px;
+    
+    .expand-button {
+        background-color: transparent;
+        border: none;
+        font-size: inherit;
+        font-weight: inherit;
+        font-family: inherit;
+        padding: 0;
+        width: 100%;
+        text-align: left;
+        background-color: #eee;
+        padding: 0 8px;
+        cursor:pointer;
+
+        span {
+            position: absolute;
+            right: 8px;
+            top: 0;
+        }
+    }
+
+    .section {
+        border: 1px solid #eee;
+        padding: 8px;
+    }
+
+    h2 {
+        margin-top: 8px;
+    }
+}
