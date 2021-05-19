@@ -45,8 +45,19 @@ body {
 
         button {
             cursor: pointer;
-            border: none;
+            border: 1px solid #000;
+            margin: 3px;
+            border-radius: 5px;
+            padding: 3px;
             background-color: transparent;
+
+            &:hover, &:focus {
+                text-decoration: underline;
+            }
+        }
+
+        input, select {
+            padding: 5px;
         }
 
         .left-side {

@@ -1,7 +1,8 @@
 .search-area {
+    margin-bottom: 15px;
+    
     #search-bar {
         width: 100%;
-        padding: 8px;
         margin: 5px 0;
     }
 
@@ -9,12 +10,5 @@
         margin: 5px 0;
         font-family: "Scaly Sans";
         border-bottom: 1px solid #aaa;
-
-        button {
-            border: 1px solid #000;
-            margin: 3px;
-            border-radius: 5px;
-            padding: 3px;
-        }
     }
 }

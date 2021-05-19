@@ -36,12 +36,12 @@ class ItemController extends Component {
                     </button>
                 </h1>
                 <div className={expanded} aria-expanded={this.state.expanded}>
-                    <p>Search the D&D Item API or add your own item</p>
+                    <p>Search the D&D Item API (suggestions will start after 3 characters) or add your own item</p>
 
                     <h2>Search for an Item</h2>
                     <Search addItem={(item) => this.addItem(item)}/>
 
-                    <h2>Add an Item</h2>
+                    <h2>Add a Custom Item</h2>
                     <CustomItem addItem={(item) => this.addItem(item)}/>
                 </div>
             </div>
