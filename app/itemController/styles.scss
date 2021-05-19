@@ -3,10 +3,8 @@
 .item-controller {
     position: relative;
     margin-bottom: 15px;
-    
+
     .expand-button {
-        background-color: transparent;
-        border: none;
         font-size: inherit;
         font-weight: inherit;
         font-family: inherit;
@@ -15,7 +13,6 @@
         text-align: left;
         background-color: #eee;
         padding: 0 8px;
-        cursor:pointer;
 
         span {
             position: absolute;

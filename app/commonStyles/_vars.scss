@@ -17,7 +17,3 @@ $large-desktop-width: 1200px;
     @media (min-width: $phablet-width)  { @content ; }
  }
 }
-
-// $tablet-up: @media and (min-width: $tablet-width);
-// $desktop-up: @media and (min-width: $desktop-width);
-// $large-desktop-up: @media and (min-width: $large-desktop-up);

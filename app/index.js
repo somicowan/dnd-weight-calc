@@ -19,8 +19,7 @@ class App extends React.Component {
             statusMessage: "",
             strScore: 0,
             totalCapacity: 0,
-            overweight: "",
-            itemCollapse: false
+            overweight: ""
         }
     }
 
