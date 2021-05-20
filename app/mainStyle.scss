@@ -2,6 +2,8 @@
 @import "./commonStyles/_vars.scss";
 
 body {
+    margin: 8px;
+
     main {
         @include breakpoint(desktop) {
             display: flex;
@@ -110,6 +112,31 @@ body {
         .bag {
             padding: 8px;
             border: 1px solid #eee;
+        }
+
+        .weight-total {
+            border-top: 2px solid #000;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+
+            h1 {
+                flex-grow: 1;
+            }
+
+            .capacity {
+                font-size: 25px;
+            }
+        }
+
+        .overweight-warning:not(:empty) {
+            padding: 8px;
+            background-color: #FFA500;
+            margin-bottom: 8px;
+        }
+
+        #char-str {
+            width: 2em;
         }
     }
 }
