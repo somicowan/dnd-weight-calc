@@ -22,7 +22,7 @@ body {
             font-weight: 600;
         }
 
-        p, label {
+        p, label, .status-message, .bag {
             font-family: "Merriweather";
             font-weight: 200;
             font-size: 14px;
@@ -48,9 +48,12 @@ body {
             border: 1px solid #000;
             margin: 3px;
             border-radius: 5px;
-            padding: 3px;
+            padding: 8px;
             background-color: transparent;
 
+            @include breakpoint(desktop) {
+                padding: 3px;
+            }
             &:hover, &:focus {
                 text-decoration: underline;
             }
@@ -62,6 +65,7 @@ body {
 
         .left-side {
             width: 100%;
+            margin-bottom: 30px;
 
             @include breakpoint(desktop) {
                 width: 25%;
@@ -84,6 +88,28 @@ body {
           overflow: hidden;
           clip: rect(0,0,0,0);
           border: 0;
+        }
+
+        .bag-title-area {
+            background-color: #eee;
+            padding: 8px 5px;
+            h1 {
+                display: inline-block;
+            }
+
+            .status-message {
+                margin-left: 8px;
+
+                &:not(:empty):before {
+                    content: "--";
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .bag {
+            padding: 8px;
+            border: 1px solid #eee;
         }
     }
 }

@@ -8,21 +8,15 @@ class CustomItem extends Component {
         this.state = {
             name: "",
             weight: 0,
-            costQuantity: 0,
-            costUnit: "cp",
             quantity: 0,
             status: ""
         }
     }
     addItem() {
-        if(this.state.name != "" && this.state.weight != "" && this.state.costQuantity != "" && this.state.quantity != "" && this.state.costUnit != "") {
+        if(this.state.name != "" && this.state.weight != "" && this.state.quantity != "") {
             const indexName = this.state.name.split(" ").join("-");
             let input = this.state;
             input.index = indexName;
-            input.cost = {
-                quantity: this.state.costQuantity,
-                unit: this.state.costUnit
-            };
             this.setState({ status: "" });
 
             this.props.addItem(JSON.stringify(input));
@@ -45,19 +39,6 @@ class CustomItem extends Component {
                 <div className="form-group">
                     <label htmlFor="custom-item-weight">Weight (in lb): </label>
                     <input id="custom-item-weight" onChange={() => this.updateState(event, "weight")} type="number"/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="custom-item-cost">Cost: </label>
-                    <input id="custom-item-cost" onChange={() => this.updateState(event, "costQuantity")} type="number"/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="custom-item-cost-unit">Cost unit: </label>
-                    <select id="custom-item-cost-unit" onChange={() => this.updateState(event, "costUnit")}>
-                        <option value="cp">cp</option>
-                        <option value="sp">sp</option>
-                        <option value="ep">ep</option>
-                        <option value="gp">gp</option>
-                    </select>
                 </div>
                 <div className="form-group">
                     <label htmlFor="custom-item-quantity">Quantity: </label>

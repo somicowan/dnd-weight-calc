@@ -86,6 +86,7 @@ class App extends React.Component {
     updateBag(bag) {
         this.setState({ items: JSON.parse(bag) }, () => {
             this._calculateWeight();
+            this.setState({ statusMessage: "Bag Updated"});
         });
     }
 
@@ -141,8 +142,8 @@ class App extends React.Component {
                          id={item.index}
                          name={item.name}
                          weight={item.weight ? item.weight : "N/A"}
-                         cost={item.cost.quantity + " " + item.cost.unit}
                          quantity={item.quantity}
+                         description={item.desc? item.desc : false}
                          updateQuantity={(itemIndex, newQuantity) => this.updateQuantity(itemIndex, newQuantity)}
                          deleteItem={(itemIndex) => this.deleteItem(itemIndex)}/>
         });
@@ -156,10 +157,12 @@ class App extends React.Component {
                 </div>
 
                 <div className="right-side">
-                    <div className="bag">
+                    <div className="bag-title-area">
                         <h1>Currently in the Bag</h1>
-                        <p aria-live="polite" className="status-message">{this.state.statusMessage}</p>
-                        { itemList }
+                        <span aria-live="polite" className="status-message">{this.state.statusMessage}</span>
+                    </div>
+                    <div className="bag">
+                        { this.state.items.length > 0 ? itemList : "The bag is empty" }
                     </div>
                     <div className="weight-total">
                         <h1>Total Weight</h1>
