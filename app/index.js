@@ -126,7 +126,7 @@ class App extends React.Component {
     _updateEncumbrance() {
         if(this.state.weightTotal > this.state.totalCapacity) {
             this.setState({ overweight: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
-        } else if(this.state.weightTotal > (this.state.strScore * 10)) {
+        } else if(this.state.weightTotal > this.state.strScore * 10) {
             this.setState({ overweight: "Encumbered - Speed drops by 10 ft."});
         } else {
             this.setState({ overweight: ""});

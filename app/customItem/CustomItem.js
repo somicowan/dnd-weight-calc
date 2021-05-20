@@ -9,7 +9,8 @@ class CustomItem extends Component {
             name: "",
             weight: 0,
             quantity: 0,
-            status: ""
+            status: "",
+            desc: ""
         }
     }
     addItem() {
@@ -43,6 +44,10 @@ class CustomItem extends Component {
                 <div className="form-group">
                     <label htmlFor="custom-item-quantity">Quantity: </label>
                     <input id="custom-item-quantity" onChange={() => this.updateState(event, "quantity")} type="number"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="custom-item-desc">Description: </label>
+                    <textarea id="custom-item-desc" onChange={() => this.updateState(event, "desc")}></textarea>
                 </div>
                 <div className="button-container">
                     <button onClick={() => this.addItem()}>Add Custom Item</button>
