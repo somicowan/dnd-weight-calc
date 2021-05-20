@@ -1,3 +1,56 @@
 .item {
-    background-color: #eee;
+    border-top: 1px solid #aaa;
+    padding: 8px 0;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    width: 100%;
+
+    &:first-child {
+        border: none;
+    }
+
+    .label {
+        font-weight: 600;
+    }
+
+    .quantity {
+        max-width: 3em;
+        margin-right: 8px;
+    }
+
+    .name {
+        font-family: "Scaly Sans";
+        font-size: 20px;
+        margin-left: 8px;
+        width: 55%;
+    }
+
+    .additional-stats {
+        margin-right: 15px;
+        flex-grow: 1;
+
+        .weight {
+            margin-right: 8px;
+        }
+    }
+
+    button.remove {
+        border-color: #800000;
+        color: #800000;
+    }
+
+    .desc-btn {
+        border: none;
+    }
+    
+    .description {
+        margin-top: 15px;
+        width: 100%;
+        display: none;
+
+        &.show {
+            display: block;
+        }
+    }
 }

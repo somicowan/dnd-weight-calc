@@ -1,0 +1,29 @@
+.import-export-section {
+    h2 {
+        margin-bottom: 8px;
+    }
+
+    .import {
+        margin-bottom: 15px;
+
+        .form-group {
+            display: flex;
+
+            input {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    .export {
+        margin-bottom: 15px;
+        
+        p {
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+        }
+    }
+}
