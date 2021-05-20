@@ -126,10 +126,7 @@ class App extends React.Component {
     _updateEncumbrance() {
         if(this.state.weightTotal > this.state.totalCapacity) {
             this.setState({ overweight: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
-        } else if(this.state.weightTotal > (this.state.strScore * 10) &&
-                  this.state.weightTotal <= (this.state.totalCapacity)) {
-            this.setState({ overweight: "Heavily encumbered - Speed drops by 20 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
-        } else if(this.state.weightTotal > (this.state.strScore * 5)) {
+        } else if(this.state.weightTotal > this.state.strScore * 10) {
             this.setState({ overweight: "Encumbered - Speed drops by 10 ft."});
         } else {
             this.setState({ overweight: ""});
@@ -165,14 +162,15 @@ class App extends React.Component {
                         { this.state.items.length > 0 ? itemList : "The bag is empty" }
                     </div>
                     <div className="weight-total">
-                        <h1>Total Weight</h1>
-                        <label htmlFor="char-str">Enter your character's character score (e.g. 18)</label>
-                        <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
+                        <h1>Total Weight *</h1>
                         <div className="capacity">
                             { this.state.weightTotal } / { this.state.totalCapacity } lb <br/>
-                            <span className="overweight-warning">{ this.state.overweight }</span>
                         </div>
                     </div>
+                    <p className="overweight-warning">{ this.state.overweight }</p>
+                    <p>* Total weight capacity is calculated by taking the character's Strength score and multiplying by 15.</p>
+                    <label htmlFor="char-str">Enter your character's Strength score (e.g. 18)</label>
+                    <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
                 </div>
             </main>
         )

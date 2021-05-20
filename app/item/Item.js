@@ -28,7 +28,7 @@ class Item extends Component {
         let quantityInputId = this.props.id + "-quantity";
 
         let descriptionBtn =  this.props.description ? <button className="desc-btn" onClick={() => this.toggleDesc()}>(See Description)</button> : "";
-        let descriptionDivClass = this.state.showDesc ? "description show" : "description"
+        let descriptionDivClass = this.state.showDesc ? "description show" : "description";
         let description =  this.props.description ? <div className={descriptionDivClass} aria-expanded={this.state.showDesc}>{this.props.description}</div>: "";
 
         return (
