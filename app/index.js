@@ -19,7 +19,22 @@ class App extends React.Component {
             statusMessage: "",
             strScore: 0,
             totalCapacity: 0,
-            overweight: ""
+            overweight: "",
+            encumbranceRules: [
+                {
+                    limit: "totalCapacity",
+                    multiplier: 1,
+                    effect: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws.",
+                    color: "#FF8080"
+                },
+                {
+                    limit: "strScore",
+                    multiplier: 10,
+                    effect: "Encumbered - Speed drops by 10 ft.",
+                    color: "#FFFFA8"
+                }
+            ],
+            overweightColor: "#fff"
         }
     }
 
@@ -101,6 +116,12 @@ class App extends React.Component {
         });
     }
 
+    updateStr(str) {
+        this.setState({ strScore: str }, () => {
+            this._updateEncumbrance();
+        })
+    }
+
     _calculateWeight() {
         let newWeight = 0;
 
@@ -108,7 +129,8 @@ class App extends React.Component {
             newWeight += (this.state.items[i].weight ? this.state.items[i].weight : 0) * (this.state.items[i].quantity);
         }
 
-        this.setState({ weightTotal: newWeight }, () => {
+        newWeight = Math.round(100*newWeight)/100;
+        this.setState({ weightTotal: newWeight.toFixed(2) }, () => {
             this._updateEncumbrance();
         });
     }
@@ -124,13 +146,23 @@ class App extends React.Component {
     }
 
     _updateEncumbrance() {
-        if(this.state.weightTotal > this.state.totalCapacity) {
-            this.setState({ overweight: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws."});
-        } else if(this.state.weightTotal > this.state.strScore * 10) {
-            this.setState({ overweight: "Encumbered - Speed drops by 10 ft."});
-        } else {
-            this.setState({ overweight: ""});
+        for(var i=0; i < this.state.encumbranceRules.length; i++) {
+            const rule = this.state.encumbranceRules[i];
+            const limit = this.state[rule.limit] * rule.multiplier;
+
+            if(this.state.weightTotal > limit) {
+                this.setState({
+                    overweight: rule.effect,
+                    overweightColor: rule.color
+                });
+                return;
+            }
         }
+
+        this.setState({
+            overweight: "",
+            overweightColor: "#fff"
+        });
     }
 
     render() {
@@ -150,7 +182,7 @@ class App extends React.Component {
                 <div className="left-side">
                     <ItemController addItem={(item) => this.addItem(item)} />
 
-                    <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} />
+                    <ImportExport bagCode={JSON.stringify(this.state.items)} updateBag={(newBag) => this.updateBag(newBag)} strScore={this.state.strScore} updateStr={(str) => this.updateStr(str)}/>
                 </div>
 
                 <div className="right-side">
@@ -167,10 +199,10 @@ class App extends React.Component {
                             { this.state.weightTotal } / { this.state.totalCapacity } lb <br/>
                         </div>
                     </div>
-                    <p className="overweight-warning">{ this.state.overweight }</p>
+                    <p style={{backgroundColor: this.state.overweightColor}} className="overweight-warning">{ this.state.overweight }</p>
                     <p>* Total weight capacity is calculated by taking the character's Strength score and multiplying by 15.</p>
                     <label htmlFor="char-str">Enter your character's Strength score (e.g. 18)</label>
-                    <input type="text" id="char-str" onChange={() => this.updateTotalCapacity(event)}/>
+                    <input type="text" id="char-str" value={this.state.strScore} onChange={() => this.updateTotalCapacity(event)}/>
                 </div>
             </main>
         )

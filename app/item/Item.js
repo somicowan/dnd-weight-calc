@@ -33,22 +33,23 @@ class Item extends Component {
 
         return (
             <div className="item">
-                <label htmlFor={quantityInputId} className="sr-only">Quantity</label>
-                <input className="quantity" type="text" id={quantityInputId} onChange={() => this.detectChange(event)} value={this.props.quantity} />
-                    <span aria-hidden="true">x</span>
-                    <span className="name">
-                        {this.props.name}
-                        {descriptionBtn}
-                    </span>
-                <div className="additional-stats">
-                    <span className="weight">
-                        <span className="label">Weight:</span> {this.props.weight} lb
-                    </span>
+                <div className="item-info">
+                    <label htmlFor={quantityInputId} className="sr-only">Quantity</label>
+                    <input className="quantity" type="text" id={quantityInputId} onChange={() => this.detectChange(event)} value={this.props.quantity} />
+                        <span aria-hidden="true">x</span>
+                        <span className="name">
+                            {this.props.name}
+                            {descriptionBtn}
+                        </span>
+                    <div className="additional-stats">
+                        <span className="weight">
+                            <span className="label">Weight:</span> {this.props.weight} lb
+                        </span>
+                    </div>
+                    <button className="remove" aria-label={"Delete " + this.props.name} onClick={() => this.detectDelete(event)}>
+                        <span className="label">X</span> Delete
+                    </button>
                 </div>
-                <button className="remove" onClick={() => this.detectDelete(event)}>
-                    <span className="label" aria-hidden="true">X</span> Delete {this.props.name}
-                </button>
-
                 {description}
             </div>
         )
