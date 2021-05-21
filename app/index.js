@@ -24,13 +24,13 @@ class App extends React.Component {
                 {
                     limit: "totalCapacity",
                     multiplier: 1,
-                    effect: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws.",
+                    effect: "Over encumbered - Speed drops to 5 ft. Disadvantage on STR, DEX, or CON ability checks, attack rolls, and saving throws. Modified encumbrance rules used.",
                     color: "#FF8080"
                 },
                 {
                     limit: "strScore",
                     multiplier: 10,
-                    effect: "Encumbered - Speed drops by 10 ft.",
+                    effect: "Encumbered - Speed drops by 10 ft. Modified encumbrance rules used.",
                     color: "#FFFFA8"
                 }
             ],
